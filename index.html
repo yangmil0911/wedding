@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff5bfcb9dbec113590a867569f3f239d"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ff5bfcb9dbec113590a867569f3f239d&autoload=false"></script>
 
     <style>
         :root {
@@ -37,36 +37,34 @@
         section { padding: 60px 20px; text-align: center; border-bottom: 8px solid #f9f9f9; }
         h2 { font-family: 'Nanum Myeongjo', serif; font-size: 1.5rem; color: var(--point-color); margin-bottom: 30px; letter-spacing: 2px; }
 
-        /* 메인 상단 */
+        /* 메인 */
         .main-hero img { width: 100%; display: block; }
         .main-info { padding: 40px 20px; }
         .main-info h1 { font-family: 'Nanum Myeongjo', serif; font-size: 1.8rem; margin: 10px 0; }
 
-        /* 가족 정보 정렬 */
+        /* 가족 정보 */
         .family-info { display: inline-block; width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
         .family-line { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.1rem; }
         .family-names { font-weight: bold; min-width: 140px; text-align: right; }
         .family-relation { color: #888; margin: 0 15px; font-size: 0.95rem; text-align: center; width: 50px; }
         .family-child { font-weight: bold; width: 60px; text-align: left; }
 
-        /* 갤러리 (3x5) */
+        /* 갤러리 */
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 20px; }
         .gallery-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; cursor: pointer; border-radius: 4px; }
 
-        /* 지도 스타일 */
-        #kakao-map { width: 100%; height: 300px; border: 1px solid #eee; border-radius: 8px; margin: 20px 0; }
+        /* 지도 영역 */
+        #kakao-map { width: 100%; height: 300px; border: 1px solid #eee; border-radius: 8px; margin: 20px 0; background: #eee; }
         
-        /* 오시는 길 상세 */
         .address-box { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; }
         .copy-btn-sm { margin-top: 10px; background: #eee; border: none; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; color: #555; }
         .map-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
         .map-btn { text-decoration: none; padding: 10px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; flex: 1; min-width: 90px; text-align: center; }
         
+        /* 교통/주차 정보 */
         .transport-item { text-align: left; margin-bottom: 25px; border-left: 3px solid var(--point-color); padding-left: 15px; }
         .transport-item h4 { margin: 0 0 8px 0; color: var(--point-color); }
         .transport-item p { font-size: 0.95rem; margin: 0; color: #555; }
-
-        /* 주차장 안내 */
         .parking-detail { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 8px; margin-bottom: 8px; text-align: left; }
         .parking-name { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 3px; }
         .parking-addr { font-size: 0.85rem; color: #666; display: block; }
@@ -80,7 +78,7 @@
         .account-item .name-label { font-size: 0.8rem; color: #888; margin-bottom: 2px; display: block; }
         .account-copy-btn { background: var(--point-color); color: white; border: none; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: bold; }
 
-        /* 하단 설정 바 */
+        /* 하단 컨트롤 */
         .font-control-bar { position: sticky; bottom: 0; width: 100%; max-width: 500px; background: rgba(255,255,255,0.95); display: flex; justify-content: center; gap: 25px; padding: 12px; border-top: 1px solid #eee; z-index: 100; }
         .font-btn { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: #555; display: flex; align-items: center; gap: 5px; }
 
@@ -109,7 +107,6 @@
             바쁘신 중에도 귀한 걸음 하시어<br>
             저희의 시작을 축복해주시면 감사하겠습니다.
         </div>
-        
         <div class="family-info">
             <div class="family-line">
                 <span class="family-names">양병춘 · 한명희</span>
@@ -160,23 +157,22 @@
                 <h4><i class="fa-solid fa-subway"></i> 지하철</h4>
                 <p>수인분당선 <strong>영통역 1번 출구</strong> 도보 4분거리</p>
             </div>
-            
             <div class="transport-item">
                 <h4><i class="fa-solid fa-square-parking"></i> 주차 안내 (무료 2시간)</h4>
                 <div class="parking-detail">
                     <span class="parking-name">제1주차장 : 본건물</span>
                     <span class="parking-addr">경기 수원시 영통구 봉영로 1612</span>
-                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주차장 주소')">주소 복사</span>
+                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사</span>
                 </div>
                 <div class="parking-detail">
                     <span class="parking-name">제2주차장 : 영통 공영 주차장 (60분 무료)</span>
                     <span class="parking-addr">경기 수원시 영통구 봉영로 1598</span>
-                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1598', '주차장 주소')">주소 복사</span>
+                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1598', '주소')">주소 복사</span>
                 </div>
                 <div class="parking-detail">
                     <span class="parking-name">제3주차장 : 플러스타운 주차장</span>
                     <span class="parking-addr">경기 수원시 영통구 청명남로28번길 20</span>
-                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 청명남로28번길 20', '주차장 주소')">주소 복사</span>
+                    <span class="parking-copy" onclick="copyText('경기 수원시 영통구 청명남로28번길 20', '주소')">주소 복사</span>
                 </div>
             </div>
         </div>
@@ -184,53 +180,33 @@
 
     <section>
         <h2>마음 전하실 곳</h2>
-        
         <div class="account-group">
             <span class="account-title">신랑측</span>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">아버지</span> <strong>양병춘</strong><br>
-                    국민은행 765202-04-177168
-                </div>
+                <div class="info"><span class="name-label">아버지</span> <strong>양병춘</strong><br>국민은행 765202-04-177168</div>
                 <button class="account-copy-btn" onclick="copyText('국민은행 765202-04-177168', '계좌번호')">복사</button>
             </div>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">어머니</span> <strong>한명희</strong><br>
-                    국민은행 620002-04-127602
-                </div>
+                <div class="info"><span class="name-label">어머니</span> <strong>한명희</strong><br>국민은행 620002-04-127602</div>
                 <button class="account-copy-btn" onclick="copyText('국민은행 620002-04-127602', '계좌번호')">복사</button>
             </div>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">신랑</span> <strong>양동규</strong><br>
-                    카카오뱅크 3333-06-9500284
-                </div>
+                <div class="info"><span class="name-label">신랑</span> <strong>양동규</strong><br>카카오뱅크 3333-06-9500284</div>
                 <button class="account-copy-btn" onclick="copyText('카카오뱅크 3333-06-9500284', '계좌번호')">복사</button>
             </div>
         </div>
-
         <div class="account-group">
             <span class="account-title">신부측</span>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">아버지</span> <strong>김두호</strong><br>
-                    우리은행 1111-222-3333
-                </div>
+                <div class="info"><span class="name-label">아버지</span> <strong>김두호</strong><br>우리은행 1111-222-3333</div>
                 <button class="account-copy-btn" onclick="copyText('우리은행 1111-222-3333', '계좌번호')">복사</button>
             </div>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">어머니</span> <strong>박경화</strong><br>
-                    농협은행 111-2222-3333-44
-                </div>
+                <div class="info"><span class="name-label">어머니</span> <strong>박경화</strong><br>농협은행 111-2222-3333-44</div>
                 <button class="account-copy-btn" onclick="copyText('농협은행 111-2222-3333-44', '계좌번호')">복사</button>
             </div>
             <div class="account-item">
-                <div class="info">
-                    <span class="name-label">신부</span> <strong>김민영</strong><br>
-                    기업은행 568-01301-01-010
-                </div>
+                <div class="info"><span class="name-label">신부</span> <strong>김민영</strong><br>기업은행 568-01301-01-010</div>
                 <button class="account-copy-btn" onclick="copyText('기업은행 568-01301-01-010', '계좌번호')">복사</button>
             </div>
         </div>
@@ -246,30 +222,34 @@
 <div id="modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
 
 <script>
-    // 카카오 지도 실행 (좌표: SY컨벤션 영통)
-    var mapContainer = document.getElementById('kakao-map'),
-        mapOption = { 
-            center: new kakao.maps.LatLng(37.2514, 127.0722), 
-            level: 3 
-        };
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    var marker = new kakao.maps.Marker({ position: new kakao.maps.LatLng(37.2514, 127.0722) });
-    marker.setMap(map);
+    // 카카오 지도 초기화 로직 (안전한 로딩 방식)
+    window.onload = function() {
+        kakao.maps.load(function() {
+            var mapContainer = document.getElementById('kakao-map'),
+                mapOption = { 
+                    center: new kakao.maps.LatLng(37.2514, 127.0722), 
+                    level: 3 
+                };
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+            var marker = new kakao.maps.Marker({ position: new kakao.maps.LatLng(37.2514, 127.0722) });
+            marker.setMap(map);
+            
+            // 모바일에서 지도가 잘 안 뜰 경우를 대비해 크기 재조정
+            map.relayout();
+        });
+    };
 
-    // 복사 기능 (유형에 따라 메시지 출력)
     function copyText(text, type) {
         navigator.clipboard.writeText(text).then(() => {
             alert(type + '가 복사되었습니다:\n' + text);
         });
     }
 
-    // 사진 확대
     function openModal(src) {
         document.getElementById('modal').style.display = 'flex';
         document.getElementById('modal-img').src = src;
     }
 
-    // 폰트 조절
     let currentScale = 1.0;
     function changeFontSize(scale) {
         currentScale *= scale;
