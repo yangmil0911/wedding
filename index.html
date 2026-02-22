@@ -9,47 +9,69 @@
     <title>양동규 ❤️ 김민영</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
     
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ff5bfcb9dbec113590a867569f3f239d&autoload=false"></script>
 
     <style>
-        :root { --bg-color: #ffffff; --point-color: #bfa5a4; --text-main: #333333; --base-font-size: 16px; }
+        :root { 
+            --bg-color: #ffffff; 
+            --point-color: #bfa5a4; 
+            --text-main: #333333; 
+            --text-sub: #777777;
+            --base-font-size: 16px; 
+        }
+
         * { box-sizing: border-box; }
-        body { margin: 0; padding: 0; font-family: 'Nanum Gothic', sans-serif; background: #f4f4f4; color: var(--text-main); line-height: 1.8; font-size: var(--base-font-size); }
+        body { 
+            margin: 0; padding: 0; 
+            font-family: 'Gowun Batang', serif; /* 전체 폰트 변경 */
+            background: #f4f4f4; 
+            color: var(--text-main); 
+            line-height: 1.8; 
+            word-break: keep-all;
+            font-size: var(--base-font-size);
+        }
+
         .container { max-width: 500px; margin: 0 auto; background: var(--bg-color); box-shadow: 0 0 10px rgba(0,0,0,0.05); }
         section { padding: 60px 20px; text-align: center; border-bottom: 8px solid #f9f9f9; }
-        h2 { font-family: 'Nanum Myeongjo', serif; font-size: 1.5rem; color: var(--point-color); margin-bottom: 30px; letter-spacing: 2px; }
+        h2 { font-size: 1.4rem; color: var(--point-color); margin-bottom: 30px; letter-spacing: 2px; font-weight: 700; }
 
         .main-hero img { width: 100%; display: block; }
+        .main-info h1 { font-size: 1.7rem; margin: 15px 0; }
+        
+        .greeting-text { line-height: 2.2; margin-bottom: 40px; font-size: 1rem; }
         .family-info { display: inline-block; width: 100%; max-width: 320px; margin: 0 auto; text-align: left; }
-        .family-line { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.1rem; }
+        .family-line { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 1.05rem; }
         .family-names { font-weight: bold; min-width: 140px; text-align: right; }
-        .family-relation { color: #888; margin: 0 15px; font-size: 0.95rem; text-align: center; width: 50px; }
-        .family-child { font-weight: bold; width: 60px; text-align: left; }
+        .family-relation { color: #888; margin: 0 15px; font-size: 0.9rem; text-align: center; width: 45px; }
+        .family-child { font-weight: bold; width: 50px; text-align: left; }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 20px; }
         .gallery-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; cursor: pointer; border-radius: 4px; }
 
+        /* 지도 영역 */
         #kakao-map { width: 100%; height: 350px; border: 1px solid #eee; border-radius: 8px; margin: 20px 0; background: #f8f8f8; }
         
-        .address-box { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .address-box { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 0.95rem; }
         .map-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
-        .map-btn { text-decoration: none; padding: 10px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; flex: 1; text-align: center; color: white; }
+        .map-btn { text-decoration: none; padding: 10px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; flex: 1; text-align: center; color: white; font-family: 'Nanum Gothic', sans-serif; }
         
         .transport-item { text-align: left; margin-bottom: 25px; border-left: 3px solid var(--point-color); padding-left: 15px; }
-        .transport-item h4 { margin: 0 0 8px 0; color: var(--point-color); }
-        .parking-detail { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 8px; margin-bottom: 8px; text-align: left; }
-        .parking-copy { color: var(--point-color); font-size: 0.8rem; cursor: pointer; text-decoration: underline; margin-top: 3px; display: inline-block; }
+        .transport-item h4 { margin: 0 0 8px 0; color: var(--point-color); font-family: 'Nanum Gothic', sans-serif; }
+        .parking-detail { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 8px; margin-bottom: 8px; text-align: left; font-size: 0.9rem; }
 
+        /* [수정] 계좌 정보 스타일: 왼쪽 정렬 및 글씨 크기 축소 */
         .account-group { margin-bottom: 30px; }
-        .account-title { font-weight: bold; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .account-title { font-weight: bold; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 5px; font-family: 'Nanum Gothic', sans-serif; }
         .account-item { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .account-item .info { text-align: left; font-size: 0.9rem; line-height: 1.5; }
-        .account-copy-btn { background: var(--point-color); color: white; border: none; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: bold; }
+        .account-item .info { text-align: left; flex: 1; }
+        .account-item .info .person { font-size: 1rem; font-weight: bold; display: block; margin-bottom: 2px; }
+        .account-item .info .number { font-size: 0.85rem; color: #666; font-family: 'Nanum Gothic', sans-serif; } /* 계좌번호 폰트 줄임 */
+        .account-copy-btn { background: var(--point-color); color: white; border: none; padding: 8px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: bold; font-family: 'Nanum Gothic', sans-serif; }
 
         .font-control-bar { position: sticky; bottom: 0; width: 100%; max-width: 500px; background: rgba(255,255,255,0.95); display: flex; justify-content: center; gap: 25px; padding: 12px; border-top: 1px solid #eee; z-index: 100; }
-        .font-btn { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: #555; }
+        .font-btn { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: #555; font-family: 'Nanum Gothic', sans-serif; }
         #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; }
         #modal img { max-width: 95%; max-height: 90%; }
     </style>
@@ -68,9 +90,10 @@
 
     <section>
         <h2>초대합니다</h2>
-        <div style="font-family: 'Nanum Myeongjo', serif; line-height: 2.2; margin-bottom: 40px;">
+        <div class="greeting-text">
             서로 다른 색이 만나 하나의 무지개를 그리듯,<br>
             저희 두 사람이 믿음과 사랑으로 한 길을 걷고자 합니다.<br>
+            바쁘신 중에도 귀한 걸음 하시어<br>
             저희의 시작을 축복해주시면 감사하겠습니다.
         </div>
         <div class="family-info">
@@ -99,7 +122,7 @@
         <div class="address-box">
             경기 수원시 영통구 봉영로 1612
             <br>
-            <button style="margin-top:10px; border:none; background:#eee; padding:6px 15px; border-radius:20px; font-size:0.85rem; cursor:pointer;" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사하기</button>
+            <button style="margin-top:10px; border:none; background:#eee; padding:6px 15px; border-radius:20px; font-size:0.85rem; cursor:pointer; font-family: 'Nanum Gothic', sans-serif;" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사하기</button>
         </div>
 
         <div class="map-btns">
@@ -112,10 +135,10 @@
 
         <div style="text-align:left; margin-top:40px;">
             <div class="transport-item">
-                <h4><i class="fa-solid fa-square-parking"></i> 주차 안내</h4>
-                <div class="parking-detail"><b>제1주차장:</b> 본건물 (봉영로 1612)<br><span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사</span></div>
-                <div class="parking-detail"><b>제2주차장:</b> 영통 공영 주차장 (봉영로 1598 / 60분 무료)<br><span class="parking-copy" onclick="copyText('경기 수원시 영통구 봉영로 1598', '주소')">주소 복사</span></div>
-                <div class="parking-detail"><b>제3주차장:</b> 플러스타운 (청명남로28번길 20)<br><span class="parking-copy" onclick="copyText('경기 수원시 영통구 청명남로28번길 20', '주소')">주소 복사</span></div>
+                <h4><i class="fa-solid fa-square-parking"></i> 주차 안내 (무료 2시간)</h4>
+                <div class="parking-detail"><b>제1주차장:</b> 본건물 (봉영로 1612)</div>
+                <div class="parking-detail"><b>제2주차장:</b> 영통 공영 주차장 (봉영로 1598) - 60분 무료</div>
+                <div class="parking-detail"><b>제3주차장:</b> 플러스타운 (청명남로28번길 20)</div>
             </div>
         </div>
     </section>
@@ -124,15 +147,33 @@
         <h2>마음 전하실 곳</h2>
         <div class="account-group">
             <span class="account-title">신랑측</span>
-            <div class="account-item"><div><small>아버지</small> <b>양병춘</b><br>국민 765202-04-177168</div><button class="account-copy-btn" onclick="copyText('국민은행 765202-04-177168', '계좌')">복사</button></div>
-            <div class="account-item"><div><small>어머니</small> <b>한명희</b><br>국민 620002-04-127602</div><button class="account-copy-btn" onclick="copyText('국민은행 620002-04-127602', '계좌')">복사</button></div>
-            <div class="account-item"><div><small>신랑</small> <b>양동규</b><br>카카오 3333-06-9500284</div><button class="account-copy-btn" onclick="copyText('카카오뱅크 3333-06-9500284', '계좌')">복사</button></div>
+            <div class="account-item">
+                <div class="info"><span class="person">아버지 양병춘</span><span class="number">국민 765202-04-177168</span></div>
+                <button class="account-copy-btn" onclick="copyText('국민은행 765202-04-177168', '계좌')">복사</button>
+            </div>
+            <div class="account-item">
+                <div class="info"><span class="person">어머니 한명희</span><span class="number">국민 620002-04-127602</span></div>
+                <button class="account-copy-btn" onclick="copyText('국민은행 620002-04-127602', '계좌')">복사</button>
+            </div>
+            <div class="account-item">
+                <div class="info"><span class="person">신랑 양동규</span><span class="number">카카오 3333-06-9500284</span></div>
+                <button class="account-copy-btn" onclick="copyText('카카오뱅크 3333-06-9500284', '계좌')">복사</button>
+            </div>
         </div>
         <div class="account-group">
             <span class="account-title">신부측</span>
-            <div class="account-item"><div><small>아버지</small> <b>김두호</b><br>우리 1111-222-3333</div><button class="account-copy-btn" onclick="copyText('우리은행 1111-222-3333', '계좌')">복사</button></div>
-            <div class="account-item"><div><small>어머니</small> <b>박경화</b><br>농협 111-2222-3333-44</div><button class="account-copy-btn" onclick="copyText('농협은행 111-2222-3333-44', '계좌')">복사</button></div>
-            <div class="account-item"><div><small>신부</small> <b>김민영</b><br>기업 568-01301-01-010</div><button class="account-copy-btn" onclick="copyText('기업은행 568-01301-01-010', '계좌')">복사</button></div>
+            <div class="account-item">
+                <div class="info"><span class="person">아버지 김두호</span><span class="number">우리 1111-222-3333</span></div>
+                <button class="account-copy-btn" onclick="copyText('우리은행 1111-222-3333', '계좌')">복사</button>
+            </div>
+            <div class="account-item">
+                <div class="info"><span class="person">어머니 박경화</span><span class="number">농협 111-2222-3333-44</span></div>
+                <button class="account-copy-btn" onclick="copyText('농협은행 111-2222-3333-44', '계좌')">복사</button>
+            </div>
+            <div class="account-item">
+                <div class="info"><span class="person">신부 김민영</span><span class="number">기업 568-01301-01-010</span></div>
+                <button class="account-copy-btn" onclick="copyText('기업은행 568-01301-01-010', '계좌')">복사</button>
+            </div>
         </div>
     </section>
 
@@ -146,22 +187,37 @@
 <div id="modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
 
 <script>
-    // [에러 해결 핵심] 카카오 지도 로드 완료 후 실행
+    // [중요] 카카오 지도 실행 로직 최적화
+    function startKakaoMap() {
+        kakao.maps.load(function() {
+            var container = document.getElementById('kakao-map');
+            var options = {
+                center: new kakao.maps.LatLng(37.2514, 127.0722),
+                level: 3
+            };
+            var map = new kakao.maps.Map(container, options);
+            var marker = new kakao.maps.Marker({ position: options.center });
+            marker.setMap(map);
+            
+            // 모바일 레이아웃 재계산
+            setTimeout(function(){ map.relayout(); map.setCenter(options.center); }, 500);
+        });
+    }
+
+    // 문서 로드 완료 시 안전하게 지도 호출
     window.onload = function() {
         if (typeof kakao !== 'undefined') {
-            kakao.maps.load(function() {
-                var container = document.getElementById('kakao-map');
-                var options = {
-                    center: new kakao.maps.LatLng(37.2514, 127.0722),
-                    level: 3
-                };
-                var map = new kakao.maps.Map(container, options);
-                var marker = new kakao.maps.Marker({ position: options.center });
-                marker.setMap(map);
-                
-                // 모바일 레이아웃 깨짐 방지
-                setTimeout(function(){ map.relayout(); map.setCenter(options.center); }, 300);
-            });
+            startKakaoMap();
+        } else {
+            // SDK가 늦게 로드될 경우를 대비해 재시도
+            var retryCount = 0;
+            var retryInterval = setInterval(function() {
+                if (typeof kakao !== 'undefined') {
+                    startKakaoMap();
+                    clearInterval(retryInterval);
+                }
+                if (++retryCount > 10) clearInterval(retryInterval);
+            }, 500);
         }
     };
 
