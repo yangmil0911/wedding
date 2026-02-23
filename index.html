@@ -55,9 +55,11 @@
         .map-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
         .map-btn { text-decoration: none; padding: 10px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; flex: 1; text-align: center; color: white; font-family: 'Nanum Gothic', sans-serif; }
         
+        .transport-item { text-align: left; margin-bottom: 25px; border-left: 3px solid var(--point-color); padding-left: 15px; }
+        .transport-item h4 { margin: 0 0 8px 0; color: var(--point-color); font-family: 'Nanum Gothic', sans-serif; }
         .parking-detail { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 8px; margin-bottom: 8px; text-align: left; font-size: 0.9rem; }
 
-        /* [수정] 계좌 정보 스타일: 왼쪽 완전 밀착 및 글씨 크기 축소 */
+        /* 계좌 정보 스타일: 왼쪽 정렬 및 폰트 축소 */
         .account-group { margin-bottom: 30px; }
         .account-title { font-weight: bold; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 5px; font-family: 'Nanum Gothic', sans-serif; }
         .account-item { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
@@ -86,6 +88,12 @@
 
     <section>
         <h2>초대합니다</h2>
+        <div style="line-height: 2.2; margin-bottom: 40px;">
+            서로 다른 색이 만나 하나의 무지개를 그리듯,<br>
+            저희 두 사람이 믿음과 사랑으로 한 길을 걷고자 합니다.<br>
+            바쁘신 중에도 귀한 걸음 하시어<br>
+            저희의 시작을 축복해주시면 감사하겠습니다.
+        </div>
         <div class="family-info">
             <div class="family-line"><span class="family-names">양병춘 · 한명희</span><span class="family-relation">의 아들</span><span class="family-child">동규</span></div>
             <div class="family-line"><span class="family-names">김두호 · 박경화</span><span class="family-relation">의 딸</span><span class="family-child">민영</span></div>
@@ -105,14 +113,14 @@
 
     <section id="map">
         <h2>LOCATION</h2>
-        <p><strong>SY컨벤션 웨딩홀</strong><br>경기 수원시 영통구 봉영로 1612 9층</p>
+        <p><strong>SY컨벤션 웨딩홀</strong><br>경기 수원시 영통구 봉영로 1612 보보스프라자 9층</p>
         
         <div id="kakao-map"></div>
 
         <div class="address-box">
-            경기 수원시 영통구 봉영로 1612
+            경기 수원시 영통구 봉영로 1612 보보스프라자
             <br>
-            <button style="margin-top:10px; border:none; background:#eee; padding:6px 15px; border-radius:20px; font-size:0.85rem; cursor:pointer;" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사하기</button>
+            <button style="margin-top:10px; border:none; background:#eee; padding:6px 15px; border-radius:20px; font-size:0.85rem; cursor:pointer; font-family: 'Nanum Gothic', sans-serif;" onclick="copyText('경기 수원시 영통구 봉영로 1612', '주소')">주소 복사하기</button>
         </div>
 
         <div class="map-btns">
@@ -126,7 +134,7 @@
         <div style="text-align:left; margin-top:40px;">
             <div class="transport-item">
                 <h4><i class="fa-solid fa-square-parking"></i> 주차 안내 (무료 2시간)</h4>
-                <div class="parking-detail"><b>제1주차장:</b> 본건물 (봉영로 1612)</div>
+                <div class="parking-detail"><b>제1주차장:</b> 본건물 보보스프라자 (봉영로 1612)</div>
                 <div class="parking-detail"><b>제2주차장:</b> 영통 공영 주차장 (봉영로 1598) - 60분 무료</div>
                 <div class="parking-detail"><b>제3주차장:</b> 플러스타운 (청명남로28번길 20)</div>
             </div>
@@ -177,7 +185,6 @@
 <div id="modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
 
 <script>
-    // [에러 해결] SDK가 완전히 로드될 때까지 기다렸다가 지도를 그립니다.
     function startMap() {
         kakao.maps.load(function() {
             var container = document.getElementById('kakao-map');
@@ -193,12 +200,10 @@
         });
     }
 
-    // 문서 로드 완료 시 안전하게 호출
     window.addEventListener('load', function() {
         if (typeof kakao !== 'undefined') {
             startMap();
         } else {
-            // SDK가 늦게 로드되는 경우 재시도
             let timer = setInterval(function() {
                 if (typeof kakao !== 'undefined') {
                     startMap();
