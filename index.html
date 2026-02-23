@@ -48,17 +48,19 @@
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 20px; }
         .gallery-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; cursor: pointer; border-radius: 4px; }
 
+        /* 지도 영역 */
         #kakao-map { width: 100%; height: 350px; border: 1px solid #eee; border-radius: 8px; margin: 20px 0; background: #f8f8f8; }
         
         .address-box { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 0.95rem; }
         .map-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
         .map-btn { text-decoration: none; padding: 10px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; flex: 1; text-align: center; color: white; font-family: 'Nanum Gothic', sans-serif; }
         
+        /* 교통/주차 안내 */
         .transport-item { text-align: left; margin-bottom: 25px; border-left: 3px solid var(--point-color); padding-left: 15px; }
         .transport-item h4 { margin: 0 0 8px 0; color: var(--point-color); font-family: 'Nanum Gothic', sans-serif; }
         .parking-detail { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 8px; margin-bottom: 8px; text-align: left; font-size: 0.9rem; }
 
-        /* 계좌 정보 왼쪽 정렬 및 폰트 설정 */
+        /* 계좌 정보 스타일 */
         .account-group { margin-bottom: 30px; }
         .account-title { font-weight: bold; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 5px; font-family: 'Nanum Gothic', sans-serif; }
         .account-item { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
@@ -127,6 +129,11 @@
             <a href="https://map.naver.com/v5/search/SY컨벤션웨딩홀" target="_blank" class="map-btn" style="background:#03c75a;">네이버지도</a>
             <a href="https://tmap.life/509a7700" target="_blank" class="map-btn" style="background:#ff5000;">티맵(Tmap)</a>
         </div>
+        
+        <div style="margin-top:30px;">
+            <p style="font-size:0.9rem; color:#888; margin-bottom:10px;">[ 위치 약도 ]</p>
+            <img src="map_guide.jpg" alt="약도 이미지" style="width:100%; border-radius:8px; border:1px solid #eee;">
+        </div>
 
         <div style="text-align:left; margin-top:40px;">
             <div class="transport-item">
@@ -182,11 +189,12 @@
 <div id="modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
 
 <script>
+    // 카카오 지도 실행 (보보스프라자 좌표 설정)
     function startMap() {
         kakao.maps.load(function() {
             var container = document.getElementById('kakao-map');
             var options = {
-                center: new kakao.maps.LatLng(37.2544936, 127.0749058), // 보보스프라자 정확한 좌표
+                center: new kakao.maps.LatLng(37.25155, 127.0722), 
                 level: 3
             };
             var map = new kakao.maps.Map(container, options);
@@ -223,4 +231,3 @@
 </script>
 </body>
 </html>
-
