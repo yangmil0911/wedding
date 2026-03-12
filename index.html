@@ -9,56 +9,53 @@
     <title>양동규 ❤️ 김민영</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
     
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ff5bfcb9dbec113590a867569f3f239d&autoload=false"></script>
 
     <style>
+        /* 기본 색상 및 폰트 변수 설정 */
         :root { 
-            --bg-color: #faf9f7; /* 고급스러운 웜톤 오프화이트 */
-            --point-color: #8c7b75; /* 채도를 낮춘 우아한 브라운/그레이 톤 */
+            --bg-color: #faf9f7; 
+            --point-color: #8c7b75; 
             --text-main: #2b2b2b; 
             --text-sub: #7a7a7a;
             --base-font-size: 15px; 
-            --font-serif: 'Noto Serif KR', serif;
-            --font-sans: 'Pretendard', sans-serif;
+            --font-serif: 'Gowun Batang', serif;
+            --font-sans: 'Nanum Gothic', sans-serif;
         }
 
         * { box-sizing: border-box; }
         body { 
             margin: 0; padding: 0; 
-            font-family: var(--font-sans);
+            font-family: var(--font-serif);
             background: #e9e9e9; 
             color: var(--text-main); 
             line-height: 1.8; 
             word-break: keep-all;
             font-size: var(--base-font-size);
-            font-weight: 300;
         }
 
         .container { max-width: 500px; margin: 0 auto; background: var(--bg-color); box-shadow: 0 0 20px rgba(0,0,0,0.08); overflow: hidden; position: relative; }
         section { padding: 80px 25px; text-align: center; }
         .section-divider { width: 1px; height: 50px; background-color: #dfdbd2; margin: 0 auto; }
-        
-        h2 { font-family: var(--font-serif); font-size: 1.2rem; color: var(--point-color); margin-bottom: 40px; letter-spacing: 4px; font-weight: 400; text-transform: uppercase; }
+        h2 { font-family: var(--font-serif); font-size: 1.2rem; color: var(--point-color); margin-bottom: 40px; letter-spacing: 4px; font-weight: 700; text-transform: uppercase; }
 
-        /* 스크롤 애니메이션 클래스 */
+        /* 스크롤 애니메이션 */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* 스플래시 스크린 (인트로) */
+        /* 스플래시 스크린 (인트로) - 타이밍 최적화 (단축) */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 15, 15, 0.92); /* 투명도 있는 고급 검은색 */
+            background: rgba(15, 15, 15, 0.85); /* 반투명 검정 */
             z-index: 9999; display: flex; align-items: center; justify-content: center;
-            transition: opacity 1s ease-out;
+            transition: opacity 0.8s ease-out;
         }
         .splash-text {
             color: #ffffff; font-family: var(--font-serif); font-size: 1.1rem; line-height: 2.2;
-            letter-spacing: 2px; text-align: center; font-weight: 300;
-            opacity: 0; animation: splashAnim 4s ease-in-out forwards;
+            letter-spacing: 2px; text-align: center; font-weight: 400;
+            opacity: 0; animation: splashAnim 2.5s ease-in-out forwards; /* 2.5초로 단축 */
         }
         @keyframes splashAnim {
             0% { opacity: 0; transform: scale(0.98); }
@@ -71,16 +68,16 @@
         .main-hero { position: relative; padding: 0; }
         .main-hero img { width: 100%; display: block; object-fit: cover; }
         .main-info { padding: 60px 20px 40px; }
-        .main-info h1 { font-family: var(--font-serif); font-size: 1.8rem; margin: 15px 0; font-weight: 400; letter-spacing: 2px; }
+        .main-info h1 { font-family: var(--font-serif); font-size: 1.8rem; margin: 15px 0; font-weight: 700; letter-spacing: 2px; }
         .main-info .date-text { font-family: var(--font-serif); font-size: 1.1rem; color: var(--point-color); margin-bottom: 5px; letter-spacing: 1px; }
 
-        /* 인사말 */
+        /* 가족 정보 */
         .greeting-text { font-family: var(--font-serif); line-height: 2.4; margin-bottom: 50px; font-size: 1.05rem; color: #444; }
         .family-info { margin: 0 auto; width: 100%; max-width: 300px; }
         .family-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; font-size: 1.05rem; }
-        .family-names { font-weight: 400; flex: 1; text-align: right; letter-spacing: 2px; }
+        .family-names { font-weight: 700; flex: 1; text-align: right; letter-spacing: 2px; }
         .family-relation { color: #999; margin: 0 15px; font-size: 0.85rem; width: 40px; text-align: center; }
-        .family-child { font-weight: 600; flex: 1; text-align: left; letter-spacing: 2px; }
+        .family-child { font-weight: 700; flex: 1; text-align: left; letter-spacing: 2px; }
 
         /* 갤러리 */
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
@@ -91,42 +88,47 @@
         #kakao-map { width: 100%; height: 320px; border: 1px solid #eaeaea; margin: 20px 0; background: #f8f8f8; }
         .address-box { background: #fff; border: 1px solid #eaeaea; padding: 25px 20px; margin: 20px 0; font-size: 0.95rem; line-height: 1.6; }
         .map-btns { display: flex; justify-content: center; gap: 5px; margin-bottom: 30px; }
-        .map-btn { padding: 12px 0; font-size: 0.8rem; font-weight: 400; flex: 1; text-align: center; color: #333; border: 1px solid #ddd; background: #fff; text-decoration: none; letter-spacing: 1px; transition: background 0.3s; }
-        .map-btn:hover { background: #f4f4f4; }
+        .map-btn { padding: 12px 0; font-size: 0.8rem; font-weight: 700; flex: 1; text-align: center; color: #333; border: 1px solid #ddd; background: #fff; text-decoration: none; letter-spacing: 1px; font-family: var(--font-sans); }
         
         .transport-item { text-align: left; margin-bottom: 30px; }
-        .transport-item h4 { font-family: var(--font-serif); margin: 0 0 10px 0; color: var(--point-color); font-size: 1.1rem; font-weight: 600; }
+        .transport-item h4 { font-family: var(--font-sans); margin: 0 0 10px 0; color: var(--point-color); font-size: 1rem; font-weight: 700; }
         .parking-detail { font-size: 0.9rem; margin-bottom: 6px; color: #555; line-height: 1.5; padding-left: 10px; border-left: 2px solid #eaeaea; }
 
-        /* 마음 전하실 곳 */
+        /* 계좌 번호 (왼쪽 정렬 유지) */
         .account-group { margin-bottom: 40px; }
-        .account-title { font-family: var(--font-serif); font-weight: 600; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eaeaea; padding-bottom: 8px; font-size: 1.05rem; }
+        .account-title { font-family: var(--font-sans); font-weight: 700; color: var(--point-color); margin-bottom: 15px; display: block; text-align: left; border-bottom: 1px solid #eaeaea; padding-bottom: 8px; font-size: 1.05rem; }
         .account-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px dashed #eaeaea; }
-        .account-item .info { text-align: left; flex: 1; }
-        .account-item .info .person { font-size: 1rem; font-weight: 600; display: block; margin-bottom: 4px; color: #333; }
-        .account-item .info .number { font-size: 0.85rem; color: #888; letter-spacing: 0.5px; } 
-        .account-copy-btn { background: #f4f4f4; color: #555; border: 1px solid #ddd; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
-
-        /* 입력 폼 (RSVP / 방명록) */
-        .input-form { text-align: left; background: #fff; padding: 30px 20px; border: 1px solid #eaeaea; }
-        .input-form label { display: block; font-size: 0.85rem; color: #666; margin-bottom: 8px; font-weight: 600; }
-        .input-form input, .input-form select, .input-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; margin-bottom: 20px; font-family: var(--font-sans); background: #faf9f7; font-size: 0.95rem; }
-        .input-form input:focus, .input-form textarea:focus { outline: none; border-color: var(--point-color); }
-        .submit-btn { width: 100%; background: var(--point-color); color: white; border: none; padding: 15px; font-size: 1rem; font-weight: 400; letter-spacing: 2px; cursor: pointer; font-family: var(--font-serif); transition: opacity 0.3s; }
-        .submit-btn:hover { opacity: 0.9; }
+        .account-item .info { text-align: left; flex: 1; display: block; }
+        .account-item .info .person { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 4px; color: #333; }
+        .account-item .info .number { font-size: 0.85rem; color: #888; letter-spacing: 0.5px; font-family: var(--font-sans); } 
+        .account-copy-btn { background: #f4f4f4; color: #555; border: 1px solid #ddd; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; font-family: var(--font-sans); font-weight: 700; }
 
         /* 메모형 방명록 디스플레이 */
         .guestbook-board { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .memo-card { background: #fff; padding: 20px 15px; text-align: left; border: 1px solid #eaeaea; box-shadow: 2px 4px 10px rgba(0,0,0,0.02); position: relative; }
-        .memo-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--point-color); opacity: 0.3; }
-        .memo-name { font-family: var(--font-serif); font-weight: 600; font-size: 0.95rem; color: #333; margin-bottom: 8px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+        .memo-card { background: #fff; padding: 20px 15px; text-align: left; border: 1px solid #eaeaea; box-shadow: 2px 4px 10px rgba(0,0,0,0.02); position: relative; border-top: 3px solid var(--point-color); }
+        .memo-name { font-family: var(--font-serif); font-weight: 700; font-size: 0.95rem; color: #333; margin-bottom: 8px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
         .memo-message { font-size: 0.85rem; color: #666; line-height: 1.6; word-break: break-all; }
 
-        /* 하단 컨트롤 및 모달 */
+        /* ---------------------------------
+           [팝업(Modal) UI 스타일 추가]
+           --------------------------------- */
+        .popup-trigger-btn { width: 100%; background: var(--bg-color); color: var(--point-color); border: 1px solid var(--point-color); padding: 15px; font-size: 1rem; font-weight: 700; letter-spacing: 2px; cursor: pointer; font-family: var(--font-sans); transition: all 0.3s; margin-top: 20px; }
+        .popup-trigger-btn:hover { background: var(--point-color); color: #fff; }
+        
+        .form-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9000; justify-content: center; align-items: center; padding: 20px; }
+        .form-modal-content { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: 8px; position: relative; text-align: left; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #999; }
+        
+        .input-form label { display: block; font-size: 0.85rem; color: #666; margin-bottom: 8px; font-weight: 700; font-family: var(--font-sans); }
+        .input-form input, .input-form select, .input-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; margin-bottom: 20px; font-family: var(--font-sans); background: #faf9f7; font-size: 0.95rem; }
+        .submit-btn { width: 100%; background: var(--point-color); color: white; border: none; padding: 15px; font-size: 1rem; font-weight: 700; letter-spacing: 2px; cursor: pointer; font-family: var(--font-sans); }
+
+        /* 하단 컨트롤 바 */
         .font-control-bar { background: var(--bg-color); display: flex; justify-content: center; gap: 30px; padding: 15px; border-top: 1px solid #eaeaea; }
-        .font-btn { border: none; background: none; font-size: 0.9rem; cursor: pointer; color: #777; font-family: var(--font-sans); }
-        #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; }
-        #modal img { max-width: 95%; max-height: 90%; }
+        .font-btn { border: none; background: none; font-size: 0.9rem; cursor: pointer; color: #777; font-family: var(--font-sans); font-weight: 700; }
+        
+        #image-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; }
+        #image-modal img { max-width: 95%; max-height: 90%; }
     </style>
 </head>
 <body>
@@ -174,7 +176,7 @@
         <div class="gallery-grid">
             <script>
                 for(let i=1; i<=15; i++) {
-                    document.write(`<img src="gallery (${i}).jpg" onclick="openModal(this.src)" onerror="this.style.display='none'">`);
+                    document.write(`<img src="gallery (${i}).jpg" onclick="openImageModal(this.src)" onerror="this.style.display='none'">`);
                 }
             </script>
         </div>
@@ -200,7 +202,7 @@
             <a href="https://tmap.life/509a7700" target="_blank" class="map-btn">티맵 (Tmap)</a>
         </div>
         
-        <img src="map_guide.jpg" alt="약도" style="width:100%; border-radius:4px; border:1px solid #eaeaea; margin-top:10px; opacity: 0.9;">
+        <img src="map_guide.jpg" alt="약도" style="width:100%; border-radius:4px; border:1px solid #eaeaea; margin-top:10px;">
 
         <div style="text-align:left; margin-top:50px;">
             <div class="transport-item reveal">
@@ -222,33 +224,15 @@
         <h2>Heartfelt Gifts</h2>
         <div class="account-group">
             <span class="account-title">신랑측 마음 전하실 곳</span>
-            <div class="account-item">
-                <div class="info"><span class="person">아버지 양병춘</span><span class="number">국민은행 765202-04-177168</span></div>
-                <button class="account-copy-btn" onclick="copyText('765202-04-177168', '국민은행 계좌')">복사</button>
-            </div>
-            <div class="account-item">
-                <div class="info"><span class="person">어머니 한명희</span><span class="number">국민은행 620002-04-127602</span></div>
-                <button class="account-copy-btn" onclick="copyText('620002-04-127602', '국민은행 계좌')">복사</button>
-            </div>
-            <div class="account-item">
-                <div class="info"><span class="person">신랑 양동규</span><span class="number">카카오뱅크 3333-06-9500284</span></div>
-                <button class="account-copy-btn" onclick="copyText('3333-06-9500284', '카카오뱅크 계좌')">복사</button>
-            </div>
+            <div class="account-item"><div class="info"><span class="person">아버지 양병춘</span><span class="number">국민은행 765202-04-177168</span></div><button class="account-copy-btn" onclick="copyText('765202-04-177168', '계좌')">복사</button></div>
+            <div class="account-item"><div class="info"><span class="person">어머니 한명희</span><span class="number">국민은행 620002-04-127602</span></div><button class="account-copy-btn" onclick="copyText('620002-04-127602', '계좌')">복사</button></div>
+            <div class="account-item"><div class="info"><span class="person">신랑 양동규</span><span class="number">카카오뱅크 3333-06-9500284</span></div><button class="account-copy-btn" onclick="copyText('3333-06-9500284', '계좌')">복사</button></div>
         </div>
         <div class="account-group">
             <span class="account-title">신부측 마음 전하실 곳</span>
-            <div class="account-item">
-                <div class="info"><span class="person">아버지 김두호</span><span class="number">우리은행 1111-222-3333</span></div>
-                <button class="account-copy-btn" onclick="copyText('1111-222-3333', '우리은행 계좌')">복사</button>
-            </div>
-            <div class="account-item">
-                <div class="info"><span class="person">어머니 박경화</span><span class="number">농협은행 111-2222-3333-44</span></div>
-                <button class="account-copy-btn" onclick="copyText('111-2222-3333-44', '농협은행 계좌')">복사</button>
-            </div>
-            <div class="account-item">
-                <div class="info"><span class="person">신부 김민영</span><span class="number">기업은행 568-01301-01-010</span></div>
-                <button class="account-copy-btn" onclick="copyText('568-01301-01-010', '기업은행 계좌')">복사</button>
-            </div>
+            <div class="account-item"><div class="info"><span class="person">아버지 김두호</span><span class="number">우리은행 1111-222-3333</span></div><button class="account-copy-btn" onclick="copyText('1111-222-3333', '계좌')">복사</button></div>
+            <div class="account-item"><div class="info"><span class="person">어머니 박경화</span><span class="number">농협은행 111-2222-3333-44</span></div><button class="account-copy-btn" onclick="copyText('111-2222-3333-44', '계좌')">복사</button></div>
+            <div class="account-item"><div class="info"><span class="person">신부 김민영</span><span class="number">기업은행 568-01301-01-010</span></div><button class="account-copy-btn" onclick="copyText('568-01301-01-010', '계좌')">복사</button></div>
         </div>
     </section>
 
@@ -256,53 +240,20 @@
 
     <section class="reveal">
         <h2>RSVP</h2>
-        <p style="font-size: 0.9rem; color: #777; margin-bottom: 30px;">축하해주시는 모든 분들의 귀한 발걸음을<br>정성껏 모시기 위해 참석 여부를 여쭙습니다.</p>
-        <form class="input-form" id="rsvpForm">
-            <input type="hidden" name="type" value="rsvp">
-            
-            <label>참석자 성함</label>
-            <input type="text" name="name" required placeholder="성함을 입력해주세요">
-            
-            <label>구분</label>
-            <select name="side">
-                <option value="신랑측">신랑측 하객입니다</option>
-                <option value="신부측">신부측 하객입니다</option>
-            </select>
-            
-            <label>참석 인원 (본인 포함)</label>
-            <input type="number" name="count" required min="1" value="1">
-            
-            <label>식사 여부</label>
-            <select name="meal">
-                <option value="식사 예정">식사 예정</option>
-                <option value="식사 안함">식사 안함</option>
-            </select>
-            
-            <button type="submit" class="submit-btn">참석 의사 전달하기</button>
-        </form>
+        <p style="font-size: 0.9rem; color: #777; margin-bottom: 20px;">축하해주시는 모든 분들의 귀한 발걸음을<br>정성껏 모시기 위해 참석 여부를 여쭙습니다.</p>
+        <button class="popup-trigger-btn" onclick="openModal('rsvpModal')">참석 의사 전달하기</button>
     </section>
 
     <div class="section-divider reveal"></div>
 
     <section class="reveal">
         <h2>Guestbook</h2>
-        <form class="input-form" id="guestbookForm">
-            <input type="hidden" name="type" value="guestbook">
-            <label>작성자 성함</label>
-            <input type="text" name="name" id="gbName" required placeholder="이름을 남겨주세요">
-            <label>축하 메시지</label>
-            <textarea name="message" id="gbMessage" rows="3" required placeholder="따뜻한 축하의 한마디를 남겨주세요"></textarea>
-            <button type="submit" class="submit-btn">메시지 남기기</button>
-        </form>
+        <button class="popup-trigger-btn" onclick="openModal('guestbookModal')">축하 메시지 남기기</button>
 
         <div class="guestbook-board" id="memoBoard">
             <div class="memo-card">
-                <div class="memo-name">동료 연구원</div>
-                <div class="memo-message">두 분의 앞날에 늘 행복과 기쁨이 가득하시길 진심으로 응원합니다. 결혼 축하드려요!</div>
-            </div>
-            <div class="memo-card">
-                <div class="memo-name">친구</div>
-                <div class="memo-message">드디어 장가가는구나! 멋진 가정 꾸리길 바랄게. 식장에서 보자!</div>
+                <div class="memo-name">지인</div>
+                <div class="memo-message">두 분의 앞날에 늘 행복과 기쁨이 가득하시길 응원합니다. 결혼 축하드려요!</div>
             </div>
         </div>
     </section>
@@ -314,34 +265,69 @@
     </div>
 </div>
 
-<div id="modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
+<div id="rsvpModal" class="form-modal-overlay">
+    <div class="form-modal-content">
+        <span class="close-modal" onclick="closeModal('rsvpModal')">&times;</span>
+        <h3 style="font-family: var(--font-serif); color: var(--point-color); margin-bottom: 20px;">참석 의사 전달</h3>
+        <form class="input-form" id="rsvpForm" style="padding:0; border:none; background:transparent;">
+            <input type="hidden" name="type" value="rsvp">
+            <label>참석자 성함</label>
+            <input type="text" name="name" required placeholder="성함을 입력해주세요">
+            <label>구분</label>
+            <select name="side">
+                <option value="신랑측">신랑측 하객입니다</option>
+                <option value="신부측">신부측 하객입니다</option>
+            </select>
+            <label>참석 인원 (본인 포함)</label>
+            <input type="number" name="count" required min="1" value="1">
+            <label>식사 여부</label>
+            <select name="meal">
+                <option value="식사 예정">식사 예정</option>
+                <option value="식사 안함">식사 안함</option>
+            </select>
+            <button type="submit" class="submit-btn">전달하기</button>
+        </form>
+    </div>
+</div>
+
+<div id="guestbookModal" class="form-modal-overlay">
+    <div class="form-modal-content">
+        <span class="close-modal" onclick="closeModal('guestbookModal')">&times;</span>
+        <h3 style="font-family: var(--font-serif); color: var(--point-color); margin-bottom: 20px;">축하 메시지 작성</h3>
+        <form class="input-form" id="guestbookForm" style="padding:0; border:none; background:transparent;">
+            <input type="hidden" name="type" value="guestbook">
+            <label>작성자 성함</label>
+            <input type="text" name="name" id="gbName" required placeholder="이름을 남겨주세요">
+            <label>축하 메시지</label>
+            <textarea name="message" id="gbMessage" rows="4" required placeholder="따뜻한 축하의 한마디를 남겨주세요"></textarea>
+            <button type="submit" class="submit-btn">메시지 남기기</button>
+        </form>
+    </div>
+</div>
+
+<div id="image-modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
 
 <script>
-    /* 1. 스플래시 화면 제어 로직 */
+    /* 스플래시 화면 제어 (2.5초 체류 후 사라짐) */
     window.addEventListener('DOMContentLoaded', () => {
         const splash = document.getElementById('splash-screen');
         setTimeout(() => {
             splash.style.opacity = '0';
-            setTimeout(() => { splash.style.display = 'none'; }, 1000); // 완전히 사라진 후 DOM 영역 제거
-        }, 4500); // 4.5초 후 종료
+            setTimeout(() => { splash.style.display = 'none'; }, 800);
+        }, 2500); 
     });
 
-    /* 2. 스크롤 렌더링 (Intersection Observer) 로직 */
+    /* 스크롤 기반 렌더링 애니메이션 */
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, { threshold: 0.15 }); // 뷰포트에 15% 보일 때 트리거
-
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+    }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    /* 3. 카카오 지도 연동 로직 */
+    /* [중요] 카카오 지도 좌표 업데이트 (WGS84 기준 위경도 갱신) */
     function startMap() {
         kakao.maps.load(function() {
             var container = document.getElementById('kakao-map');
-            // SY컨벤션(보보스프라자) 정밀 좌표
+            // 위도: 37.2544936, 경도: 127.0749058 적용 완료
             var options = { center: new kakao.maps.LatLng(37.2544936, 127.0749058), level: 3 };
             var map = new kakao.maps.Map(container, options);
             var marker = new kakao.maps.Marker({ position: options.center });
@@ -352,63 +338,63 @@
 
     window.addEventListener('load', function() {
         if (typeof kakao !== 'undefined') { startMap(); } 
-        else {
-            let timer = setInterval(function() {
-                if (typeof kakao !== 'undefined') { startMap(); clearInterval(timer); }
-            }, 500);
-        }
+        else { let timer = setInterval(function() { if (typeof kakao !== 'undefined') { startMap(); clearInterval(timer); } }, 500); }
     });
 
-    /* 4. 복사, 모달, 폰트 조절 유틸리티 */
+    /* 유틸리티 함수 (복사, 모달, 폰트) */
     function copyText(text, type) { navigator.clipboard.writeText(text).then(() => { alert(type + '가 복사되었습니다.'); }); }
-    function openModal(src) { document.getElementById('modal').style.display = 'flex'; document.getElementById('modal-img').src = src; }
+    function openImageModal(src) { document.getElementById('image-modal').style.display = 'flex'; document.getElementById('modal-img').src = src; }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
     let currentScale = 1.0;
     function changeFontSize(scale) {
         currentScale *= scale;
         document.documentElement.style.setProperty('--base-font-size', (15 * currentScale) + 'px');
     }
-    function resetFontSize() { 
-        currentScale = 1.0; 
-        document.documentElement.style.setProperty('--base-font-size', '15px'); 
-    }
+    function resetFontSize() { currentScale = 1.0; document.documentElement.style.setProperty('--base-font-size', '15px'); }
 
-    /* 5. 폼 제출 및 메모형 방명록 DOM 업데이트 로직 */
-    const GOOGLE_SCRIPT_URL = "여기에_구글_앱스_스크립트_URL_입력"; 
+    /* [업데이트] 구글 Apps Script Web App URL 연동 */
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz41HoT0JmptRQeNoEeH2uqmQe4blZmE7e7HHD0c70chi8bWPNd-4cml8QgFH6XOOY6/exec"; 
 
-    // RSVP 전송
+    // RSVP 폼 제출 처리
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
         fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
-            .then(() => { alert('참석 의사가 정상적으로 전달되었습니다. 감사합니다.'); this.reset(); })
-            .catch(() => { alert('참석 의사가 정상적으로 전달되었습니다. 감사합니다.'); this.reset(); }); // CORS 회피용
+            .then(() => { 
+                alert('참석 의사가 정상적으로 전달되었습니다.'); 
+                this.reset(); closeModal('rsvpModal'); 
+            }).catch(() => { 
+                alert('참석 의사가 정상적으로 전달되었습니다.'); 
+                this.reset(); closeModal('rsvpModal'); 
+            });
     });
 
-    // 방명록 전송 및 메모 시각화
+    // 방명록 폼 제출 처리 및 DOM 업데이트
     document.getElementById('guestbookForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // 메모 카드 동적 생성
         const nameVal = document.getElementById('gbName').value;
         const msgVal = document.getElementById('gbMessage').value;
-        const memoBoard = document.getElementById('memoBoard');
         
+        // 제출 즉시 메모 카드를 화면에 추가
         const newMemoHTML = `
             <div class="memo-card reveal active">
                 <div class="memo-name">${nameVal}</div>
                 <div class="memo-message">${msgVal}</div>
             </div>`;
-        
-        // 상단에 새 메모 추가
-        memoBoard.insertAdjacentHTML('afterbegin', newMemoHTML);
+        document.getElementById('memoBoard').insertAdjacentHTML('afterbegin', newMemoHTML);
         
         const formData = new FormData(this);
         fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
-            .then(() => { alert('메시지가 등록되었습니다.'); this.reset(); })
-            .catch(() => { alert('메시지가 등록되었습니다.'); this.reset(); }); // CORS 회피용
+            .then(() => { 
+                alert('메시지가 등록되었습니다.'); 
+                this.reset(); closeModal('guestbookModal'); 
+            }).catch(() => { 
+                alert('메시지가 등록되었습니다.'); 
+                this.reset(); closeModal('guestbookModal'); 
+            });
     });
 </script>
 </body>
 </html>
-
