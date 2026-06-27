@@ -153,7 +153,6 @@
         .popup-trigger-btn { width: 100%; background: #fff; color: var(--point-color); border: 1px solid var(--point-color); padding: 16px; border-radius: var(--radius-btn); font-size: 1rem; font-weight: 700; cursor: pointer; font-family: var(--font-sans); transition: all 0.3s; margin-top: 10px; }
         .popup-trigger-btn:hover { background: var(--point-color); color: #fff; }
 
-        /* 고도화된 방명록 레이아웃 디자인 */
         .guestbook-board { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 30px; text-align: left; }
         .memo-card { background: #fff; padding: 20px; border-radius: var(--radius-box); box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--point-color); position: relative; }
         .memo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f2ece4; padding-bottom: 8px; margin-bottom: 10px; }
@@ -228,7 +227,7 @@
         <h2>Invitation</h2>
         <div class="greeting-text">
             서로 다른 색이 만나 하나의 무지개를 그리듯,<br>
-            저희 두 사람이 믿음และ 사랑으로 한 길을 걷고자 합니다.<br>
+            저희 두 사람이 믿음과 사랑으로 한 길을 걷고자 합니다.<br>
             바쁘신 중에도 귀한 걸음 하시어<br>
             저희의 시작을 축복해주시면 감사하겠습니다.
         </div>
@@ -426,6 +425,7 @@
 </div>
 
 <script>
+    // 본인의 배포된 구글 웹 앱 URL이 맞는지 다시 한 번 확인하십시오.
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz41HoT0JmptRQeNoEeH2uqmQe4blZmE7e7HHD0c70chi8bWPNd-4cml8QgFH6XOOY6/exec"; 
 
     let currentPage = 1;
@@ -487,15 +487,13 @@
         document.getElementById('modal-img').src = galleryImages[currentImgIndex];
     }
 
-    // 고도화 및 최적화된 방명록 데이터 비동기 호출 함수
     function fetchMessages(isInitial = false, customLimit = pageLimit) {
         if (isLoading) return;
         isLoading = true;
 
         if (isInitial) currentPage = 1;
 
-        // 브라우저 내부 강제 캐싱 방지를 위한 캐시 버스터(_=Timestamp) 매개변수 주입
-        const requestUrl = `${GOOGLE_SCRIPT_URL}?page=${currentPage}&limit=${customLimit}&_=${Date.now()}`;
+        const requestUrl = `${GOOGLE_SCRIPT_URL}?page=${currentPage}&limit=${customLimit}`;
 
         fetch(requestUrl)
             .then(response => {
@@ -508,12 +506,10 @@
 
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(item => {
-                        // 한글/영문 스프레드시트 스키마 매핑 유연화 기술 적용
                         const name = item['이름'] || item['Name'] || item['name'] || '익명 하객';
                         const message = item['메시지'] || item['Message'] || item['message'] || '';
                         const rawTime = item['타임스탬프'] || item['Timestamp'] || item['timestamp'] || '';
                         
-                        // 타임스탬프 표기 포맷 최적화 기법 (ex. "2026-06-27 11:12:48" -> "06.27 11:12")
                         let displayTime = '';
                         if (rawTime) {
                             const dateTimeParts = rawTime.split(' ');
@@ -538,7 +534,6 @@
                         memoBoard.insertAdjacentHTML('beforeend', cardTemplate);
                     });
 
-                    // 하단 제어 단추 가시성 유효성 평가
                     const ctrlGroup = document.querySelector('.guestbook-ctrl-group');
                     if (ctrlGroup) {
                         if (!res.has_next || customLimit > pageLimit) {
@@ -556,16 +551,14 @@
                 }
             })
             .catch(error => {
-                console.error('Error parsing response:', error);
+                console.error('Fetch GET Error:', error);
                 const memoBoard = document.getElementById('memoBoard');
                 if (isInitial && memoBoard) {
-                    // 사용자 로컬 구동 시 예외 가시성 UI 피드백 출력
                     memoBoard.innerHTML = `
                         <div style="text-align:center; padding:30px 0; color:#ff6b6b; font-size:0.9rem; width:100%; line-height:1.6;">
-                            데이터를 불러오는 중 오류가 발생했습니다.<br>
+                            방명록 데이터를 불러올 수 없습니다.<br>
                             <span style="color:#777; font-size:0.8rem;">
-                                로컬 파일(file://)로 실행 시 브라우저 CORS 보안 정책으로 차단될 수 있습니다.<br>
-                                GitHub Pages 등 서버에 배포하거나 웹 호스팅 환경에서 정상 작동합니다.
+                                Google Apps Script의 권한 설정이 <b>'모든 사람(Anyone)'</b>으로 되어 있는지, 혹은 <b>새로운 버전으로 배포</b>되었는지 확인이 필요합니다.
                             </span>
                         </div>`;
                 }
@@ -658,6 +651,7 @@
         });
     }
 
+    // POST 통신 최적화: mode 'no-cors'를 부여하여 브라우저 콘솔의 불필요한 CORS 차단 에러를 방지합니다.
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const submitBtn = this.querySelector('.submit-btn');
@@ -666,9 +660,8 @@
         submitBtn.innerText = '전송 중...';
 
         const formData = new FormData(this);
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
-            .then(response => {
-                if(!response.ok) throw new Error('Network Error');
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
                 alert('참석 의사가 정상적으로 전달되었습니다.'); 
                 this.reset(); 
                 closeModal('rsvpModal'); 
@@ -677,6 +670,7 @@
             .finally(() => { submitBtn.disabled = false; submitBtn.innerText = originalText; });
     });
 
+    // POST 통신 최적화: mode 'no-cors'를 부여하여 브라우저 콘솔의 불필요한 CORS 차단 에러를 방지합니다.
     document.getElementById('guestbookForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const submitBtn = this.querySelector('.submit-btn');
@@ -685,9 +679,8 @@
         submitBtn.innerText = '등록 중...';
 
         const formData = new FormData(this);
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
-            .then(response => {
-                if(!response.ok) throw new Error('Network Error');
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
                 alert('메시지가 정상적으로 등록되었습니다.'); 
                 this.reset(); 
                 closeModal('guestbookModal'); 
