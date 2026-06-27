@@ -153,16 +153,15 @@
         .popup-trigger-btn { width: 100%; background: #fff; color: var(--point-color); border: 1px solid var(--point-color); padding: 16px; border-radius: var(--radius-btn); font-size: 1rem; font-weight: 700; cursor: pointer; font-family: var(--font-sans); transition: all 0.3s; margin-top: 10px; }
         .popup-trigger-btn:hover { background: var(--point-color); color: #fff; }
 
-
-        /* 고도화된 방명록 레이아웃 디자인 */
         .guestbook-board { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 30px; text-align: left; }
-        .memo-card { background: #fff; padding: 20px; border-radius: var(--radius-box); box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--point-color); position: relative; display: flex; flex-direction: column; gap: 10px; }
-        .memo-name { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; color: #333; }
-        .memo-message { font-size: 0.95rem; color: #555; line-height: 1.6; word-break: break-all; white-space: pre-line; margin-bottom: 5px; }
-        .memo-time { font-size: 0.85rem; color: #a19a93; font-family: var(--font-sans); text-align: right; }
+        .memo-card { background: #fff; padding: 20px; border-radius: var(--radius-box); box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--point-color); position: relative; }
+        .memo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f2ece4; padding-bottom: 8px; margin-bottom: 10px; }
+        .memo-name { font-family: var(--font-sans); font-weight: 700; font-size: 0.95rem; color: #333; }
+        .memo-time { font-size: 0.8rem; color: #a19a93; font-family: var(--font-sans); }
+        .memo-message { font-size: 0.9rem; color: #555; line-height: 1.6; word-break: break-all; white-space: pre-line; }
         
         .guestbook-ctrl-group { display: flex; gap: 10px; margin-top: 25px; }
-        
+
         .form-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(3px); }
         .form-modal-content { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: var(--radius-box); position: relative; text-align: left; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #999; }
@@ -381,7 +380,7 @@
         <span class="close-modal" onclick="closeModal('rsvpModal')">&times;</span>
         <h3 style="font-family: var(--font-serif); color: var(--point-color); margin-bottom: 20px;">참석 의사 전달</h3>
         <form class="input-form" id="rsvpForm" style="padding:0; border:none; background:transparent;">
-            <input type="hidden" name="type" value="rsvp">
+            <input type="hidden" name="action" value="rsvp">
             <label>참석자 성함</label>
             <input type="text" name="name" required placeholder="성함을 입력해주세요">
             <label>구분</label>
@@ -406,7 +405,7 @@
         <span class="close-modal" onclick="closeModal('guestbookModal')">&times;</span>
         <h3 style="font-family: var(--font-serif); color: var(--point-color); margin-bottom: 20px;">축하 메시지 작성</h3>
         <form class="input-form" id="guestbookForm" style="padding:0; border:none; background:transparent;">
-            <input type="hidden" name="type" value="guestbook">
+            <input type="hidden" name="action" value="guestbook">
             <label>작성자 성함</label>
             <input type="text" name="name" id="gbName" required placeholder="이름을 남겨주세요">
             <label>축하 메시지</label>
@@ -426,8 +425,7 @@
 </div>
 
 <script>
-    // 본인의 배포된 구글 웹 앱 URL이 맞는지 다시 한 번 확인하십시오.
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxM_QAzyQNQPkCvAl9Jj5L-_iEQGlpu2B77rlnflb3Kw4e23weHWEk6TR_PXJTxx-3ZiQ/exec"; 
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz41HoT0JmptRQeNoEeH2uqmQe4blZmE7e7HHD0c70chi8bWPNd-4cml8QgFH6XOOY6/exec"; 
 
     let currentPage = 1;
     const pageLimit = 4;
@@ -494,7 +492,7 @@
 
         if (isInitial) currentPage = 1;
 
-        const requestUrl = `${GOOGLE_SCRIPT_URL}?page=${currentPage}&limit=${customLimit}`;
+        const requestUrl = `${GOOGLE_SCRIPT_URL}?page=${currentPage}&limit=${customLimit}&_=${Date.now()}`;
 
         fetch(requestUrl)
             .then(response => {
@@ -507,18 +505,38 @@
 
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(item => {
+                        // 1. 유연한 스키마 맵핑 적용 (메세지 필드 완벽 대응)
                         const name = item['이름'] || item['Name'] || item['name'] || '익명 하객';
-                        const message = item['메시지'] || item['Message'] || item['message'] || '';
-                        const rawTime = item['타임스탬프'] || item['Timestamp'] || item['timestamp'] || '';
+                        const message = item['메세지'] || item['메시지'] || item['Message'] || item['message'] || '';
+                        const rawTime = item['타임스탬프'] || item['Timestamp'] || item['timestamp'] || item['등록시간'] || '';
                         
+                        // 2. ISO 8601 및 크로스 브라우징 가속 포맷터 기법 적용 (ex. ISO스트림 -> "MM.DD HH:MM")
                         let displayTime = '';
                         if (rawTime) {
-                            const dateTimeParts = rawTime.split(' ');
-                            if (dateTimeParts.length >= 2) {
-                                const dateUnits = dateTimeParts[0].split('-');
-                                const timeUnits = dateTimeParts[1].split(':');
-                                displayTime = `${dateUnits[1] || '00'}.${dateUnits[2] || '00'} ${timeUnits[0] || '00'}:${timeUnits[1] || '00'}`;
-                            } else {
+                            try {
+                                let normalizedTime = rawTime;
+                                // 공백 구분 포맷의 정규식 검증 및 ISO 표준 변환
+                                if (typeof rawTime === 'string' && !rawTime.includes('T') && rawTime.includes(' ')) {
+                                    normalizedTime = rawTime.replace(' ', 'T');
+                                }
+                                
+                                const dateObj = new Date(normalizedTime);
+                                if (!isNaN(dateObj.getTime())) {
+                                    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                                    const date = String(dateObj.getDate()).padStart(2, '0');
+                                    const hours = String(dateObj.getHours()).padStart(2, '0');
+                                    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+                                    displayTime = `${month}.${date} ${hours}:${minutes}`;
+                                } else {
+                                    // 네이티브 Date 실패 시 정규식 텍스트 파싱 처리 보충
+                                    const match = String(rawTime).match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})\s*(\d{1,2}):(\d{1,2})/);
+                                    if (match) {
+                                        displayTime = `${match[2].padStart(2, '0')}.${match[3].padStart(2, '0')} ${match[4].padStart(2, '0')}:${match[5].padStart(2, '0')}`;
+                                    } else {
+                                        displayTime = rawTime;
+                                    }
+                                }
+                            } catch (e) {
                                 displayTime = rawTime;
                             }
                         }
@@ -552,14 +570,15 @@
                 }
             })
             .catch(error => {
-                console.error('Fetch GET Error:', error);
+                console.error('Error parsing response:', error);
                 const memoBoard = document.getElementById('memoBoard');
                 if (isInitial && memoBoard) {
                     memoBoard.innerHTML = `
                         <div style="text-align:center; padding:30px 0; color:#ff6b6b; font-size:0.9rem; width:100%; line-height:1.6;">
-                            방명록 데이터를 불러올 수 없습니다.<br>
+                            데이터를 불러오는 중 오류가 발생했습니다.<br>
                             <span style="color:#777; font-size:0.8rem;">
-                                Google Apps Script의 권한 설정이 <b>'모든 사람(Anyone)'</b>으로 되어 있는지, 혹은 <b>새로운 버전으로 배포</b>되었는지 확인이 필요합니다.
+                                로컬 파일(file://)로 실행 시 브라우저 CORS 보안 정책으로 차단될 수 있습니다.<br>
+                                GitHub Pages 등 서버에 배포하거나 웹 호스팅 환경에서 정상 작동합니다.
                             </span>
                         </div>`;
                 }
@@ -652,7 +671,6 @@
         });
     }
 
-    // POST 통신 최적화: mode 'no-cors'를 부여하여 브라우저 콘솔의 불필요한 CORS 차단 에러를 방지합니다.
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const submitBtn = this.querySelector('.submit-btn');
@@ -661,8 +679,9 @@
         submitBtn.innerText = '전송 중...';
 
         const formData = new FormData(this);
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(() => {
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
+            .then(response => {
+                if(!response.ok) throw new Error('Network Error');
                 alert('참석 의사가 정상적으로 전달되었습니다.'); 
                 this.reset(); 
                 closeModal('rsvpModal'); 
@@ -671,7 +690,6 @@
             .finally(() => { submitBtn.disabled = false; submitBtn.innerText = originalText; });
     });
 
-    // POST 통신 최적화: mode 'no-cors'를 부여하여 브라우저 콘솔의 불필요한 CORS 차단 에러를 방지합니다.
     document.getElementById('guestbookForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const submitBtn = this.querySelector('.submit-btn');
@@ -680,8 +698,9 @@
         submitBtn.innerText = '등록 중...';
 
         const formData = new FormData(this);
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(() => {
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
+            .then(response => {
+                if(!response.ok) throw new Error('Network Error');
                 alert('메시지가 정상적으로 등록되었습니다.'); 
                 this.reset(); 
                 closeModal('guestbookModal'); 
