@@ -454,10 +454,11 @@
         fetchMessages(true, pageLimit);
     });
 
+    // 사진 수량을 40장으로 변경한 영역
     function renderGallery() {
         const galleryContainer = document.getElementById('gallery-container');
         let htmlStr = '';
-        for(let i=1; i<=15; i++) {
+        for(let i=1; i<=40; i++) {
             const imgSrc = `gallery (${i}).jpg`;
             galleryImages.push(imgSrc);
             htmlStr += `<img src="${imgSrc}" onclick="openGalleryModal(${i-1})" onerror="this.style.display='none'">`;
@@ -505,17 +506,14 @@
 
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(item => {
-                        // 1. 유연한 스키마 맵핑 적용 (메세지 필드 완벽 대응)
                         const name = item['이름'] || item['Name'] || item['name'] || '익명 하객';
                         const message = item['메세지'] || item['메시지'] || item['Message'] || item['message'] || '';
                         const rawTime = item['타임스탬프'] || item['Timestamp'] || item['timestamp'] || item['등록시간'] || '';
                         
-                        // 2. ISO 8601 및 크로스 브라우징 가속 포맷터 기법 적용 (ex. ISO스트림 -> "MM.DD HH:MM")
                         let displayTime = '';
                         if (rawTime) {
                             try {
                                 let normalizedTime = rawTime;
-                                // 공백 구분 포맷의 정규식 검증 및 ISO 표준 변환
                                 if (typeof rawTime === 'string' && !rawTime.includes('T') && rawTime.includes(' ')) {
                                     normalizedTime = rawTime.replace(' ', 'T');
                                 }
@@ -528,7 +526,6 @@
                                     const minutes = String(dateObj.getMinutes()).padStart(2, '0');
                                     displayTime = `${month}.${date} ${hours}:${minutes}`;
                                 } else {
-                                    // 네이티브 Date 실패 시 정규식 텍스트 파싱 처리 보충
                                     const match = String(rawTime).match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})\s*(\d{1,2}):(\d{1,2})/);
                                     if (match) {
                                         displayTime = `${match[2].padStart(2, '0')}.${match[3].padStart(2, '0')} ${match[4].padStart(2, '0')}:${match[5].padStart(2, '0')}`;
