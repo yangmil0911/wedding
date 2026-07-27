@@ -454,11 +454,11 @@
         fetchMessages(true, pageLimit);
     });
 
-    // 사진 수량을 40장으로 변경한 영역
+    // 사진 수량을 42장으로 변경한 영역
     function renderGallery() {
         const galleryContainer = document.getElementById('gallery-container');
         let htmlStr = '';
-        for(let i=1; i<=40; i++) {
+        for(let i=1; i<=42; i++) {
             const imgSrc = `gallery (${i}).jpg`;
             galleryImages.push(imgSrc);
             htmlStr += `<img src="${imgSrc}" onclick="openGalleryModal(${i-1})" onerror="this.style.display='none'">`;
